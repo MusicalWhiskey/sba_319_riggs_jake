@@ -27,16 +27,16 @@ const userSchema = new Schema({
   }]
 })
 
-// Defining Indexes
+// Defining Index
 userSchema.index({ username: 1 })
 
-// Defining custom instance methods
+// Defining Custom Instance
 userSchema.methods.sayHello = function () {
   return `Hello! My name is ${this.name}`
 }
 
 
-// Defining Static model method
+// Defining Static Model
 userSchema.statics.getByUsername = async function (input) {
   return await this.findOne({username: input})
 }
