@@ -1,6 +1,5 @@
 import { Schema, model } from "mongoose";
 
-
 const artistSchema = new Schema({
   artistName: {
     type: String,
