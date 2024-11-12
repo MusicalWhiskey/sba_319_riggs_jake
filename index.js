@@ -13,48 +13,43 @@ mongoose.connect(process.env.ATLAS_URI)
     .then(() => console.log('Mongoose is connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 
-
-// Pulling in Artist Model
-import Artist from './models/artist.js';
+//Pulling in Artist Model
+import Artist from './models/artist.js'
 
 // Turning off auto indexing for production environments
 mongoose.set("autoIndex", false)
-const newArtist = new Artist({
-  artistName: "jill Doe",
-  bestAlbum: "best album ever",
-  genre: "pop",
-  likes: 0
 
-})
+// Indexes
+// Artist.index({artistName: "text", bestAlbum: "text", genre: "text"})
+
+// Homepage
+app.get('/', (req, res) => {
+    console.log('Root route hit!');
+    res.send(`Welcome! Click <a href="/artists">here</a> to see the artists I listen to`);
+});
 
 // Get all Artists
 app.get('/artists', async (req, res) => {
-    try {
-        const artists = await Artist.find();
-        res.json(artists);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-
+    const artists = await artist.find();
+    res.json(artists);
+  });
 
 // Get a single Artist
 app.get('/artists/:id', async (req, res) => {
     try {
-        const artist = await Artist.findById(req.params.id);
-        if (!artist) {
-            return res.status(404).json({ message: 'Artist not found' });
+        const artist = await artist.findById(req.params.id);
+        if (artist == null) {
+            return res.status(404).json({ message: 'Cannot find artist' });
         }
         res.json(artist);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
-
-
+    
 // Create a new Artist   
 app.post('/artists', async (req, res) => {
-    const artist = new Artist(req.body);
+    const artist = new artist(req.body);
     try {
         const newArtist = await artist.save();
         res.status(201).json(newArtist);
@@ -66,7 +61,7 @@ app.post('/artists', async (req, res) => {
 // Update an Artist
 app.patch('/artists/:id', async (req, res) => {
     try {
-        const artist = await Artist.findById(req.params.id);
+        const artist = await artist.findById(req.params.id);
         if (artist == null) {
             return res.status(404).json({ message: 'Cannot find artist' });
         }
@@ -89,7 +84,7 @@ app.patch('/artists/:id', async (req, res) => {
 // Delete an Artist
 app.delete('/artists/:id', async (req, res) => {
     try {
-        const artist = await Artist.findById(req.params.id);
+        const artist = await artist.findById(req.params.id);
         if (artist == null) {
             return res.status(404).json({ message: 'Cannot find artist' });
         }
@@ -99,8 +94,6 @@ app.delete('/artists/:id', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
-
-
 
 
 // Middleware and routes will go here

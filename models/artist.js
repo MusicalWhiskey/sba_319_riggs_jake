@@ -1,14 +1,9 @@
-import { Schema, model } from 'mongoose'
-
+import { Schema, model } from "mongoose";
 const artistSchema = new Schema({
-    _id:{
-      type: String,
-      required: true
-    },
-    artistName: {
-      type: String,
-      required: true
-    },
+  artistName: {
+    type: String,
+    required: true
+  },
     bestAlbum: {
       type: String,
       required: true
@@ -17,8 +12,14 @@ const artistSchema = new Schema({
       type: String,
       required: true
     }
-  })
+})    
 
+  //Defining Indexes
+  artistSchema.index({artistName: "text", bestAlbum: "text", genre: "text"})
 
+  //Defining Static Model Method
+  artistSchema.statics.findByName = function(name) {
+    return this.find({artistName: name})
+  }
 
-export default model('Artist', artistSchema)
+  export default model('Artist', artistSchema)
