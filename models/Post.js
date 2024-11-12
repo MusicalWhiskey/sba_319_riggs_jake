@@ -5,11 +5,14 @@ const postSchema = new Schema({
     type: String,
     required: true
   },
-  yourFavoriteSong: {
+  bestAlbum: {
     type: String,
     required: true
   },
-  likes: Number,
+  bestSong: {
+    type: String,
+    required: true
+  },
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User'

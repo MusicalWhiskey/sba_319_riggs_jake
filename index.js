@@ -139,6 +139,15 @@ app.get('/users', async (req, res) => {
     }
   })
   
+  // Get all posts
+  app.get('/posts', async (req, res) => {
+    try {
+      const posts = await Post.find({})
+      res.status(200).json(posts)
+    } catch (err) {
+      res.send(err).status(400)
+    }
+  })
 
   // Get User posts
 app.get('/users/:id/posts', async (req, res) => {
