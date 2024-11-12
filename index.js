@@ -150,10 +150,10 @@ app.get('/users', async (req, res) => {
   })
 
   // Get User posts
-app.get('/users/:id/posts', async (req, res) => {
+  app.get('/posts/:userId', async (req, res) => {
     try {
-      const user = await User.findById(req.params.id).populate("posts")
-      res.status(200).json(user)
+      const posts = await Post.find({userId: req.params.userId})
+      res.status(200).json(posts)
     } catch (err) {
       res.send(err).status(400)
     }
@@ -181,8 +181,16 @@ app.get('/users/:id/posts', async (req, res) => {
       res.send(err).status(400)
     }
   })
-
-// Middleware and routes will go here
+  
+  // Delete a post
+  app.delete('/posts/:id', async (req, res) => {
+    try {
+      const post = await Post.findByIdAndDelete(req.params.id)
+      res.status(200).json(post)
+    } catch (err) {
+      res.send(err).status(400)
+    }
+  })
 
 
 app.listen(PORT, () => {
