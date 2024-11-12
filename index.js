@@ -20,13 +20,12 @@ import User from './models/User.js';
 
 // Turning off auto indexing for production environments
 mongoose.set("autoIndex", false)
-//New User Validity Test
-const newUser = new User({
-    name: "CoolCool CoolCool",
-    email: "CoolCool@Cool.Cool",
-    password: "123",
-    username: "CoolCoolCoolCool"
-  })
+// const newUser = new User({
+//     name: "CoolCool CoolCool",
+//     email: "CoolCool@Cool.Cool",
+//     password: "123",
+//     username: "CoolCoolCoolCool"
+//   })
   
   // RUN THIS LINE OF CODE IN ORDER FOR LINES 27-34 TO WORK 
 //   await newUser.save()
